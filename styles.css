@@ -77,13 +77,22 @@ a {
 .brand {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+    left: auto;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     width: max-content;
     color: rgba(255, 255, 255, 0.86);
     font-weight: 700;
+}
+
+.brand-image {
+    display: block;
+    height: 42px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
 }
 
 .brand-mark {
@@ -128,7 +137,8 @@ a {
 .controls {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
+    right: auto;
     display: inline-flex;
     gap: 8px;
 }
@@ -347,6 +357,39 @@ a {
 .chapter-title span:last-child {
     font-weight: 300;
 }
+
+.chapter-title .two{
+    position: absolute;
+    right: 14vw;
+    bottom: 11vh;
+    z-index: 2;
+    margin: 0;
+    color: rgba(244, 242, 239, 0.84);
+    font-size: clamp(3.4rem, 6.2vw, 5.8rem);
+    font-weight: 300;
+    line-height: 1;
+    opacity: 0;
+    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
+    transform: translateY(-22px);
+    transition: transform 700ms ease, opacity 700ms ease;
+}
+
+.chapter-title .three{
+    position: absolute;
+    right: 14vw;
+    bottom: 11vh;
+    z-index: 2;
+    margin: 0;
+    color: rgba(244, 242, 239, 0.84);
+    font-size: clamp(3.4rem, 6.2vw, 5.8rem);
+    font-weight: 300;
+    line-height: 1;
+    opacity: 0;
+    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
+    transform: translateY(-22px);
+    transition: transform 700ms ease, opacity 700ms ease;
+}
+
 
 .hero-copy--brand {
     display: flex;
@@ -926,6 +969,11 @@ h2 {
 
     .brand span:last-child {
         display: none;
+    }
+
+    .brand-image {
+        height: 150px;
+        max-width: 150px;
     }
 
     .icon-button {

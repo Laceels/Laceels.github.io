@@ -11,11 +11,11 @@
 <body>
     <div class="site-shell">
         <header class="topbar" aria-label="Portfolio controls">
-            <!-- <a class="brand" href="#cover" aria-label="Go to start">
-                <span class="brand-mark" aria-hidden="true">L</span>
-                <span>Laceels</span>
-            </a> -->
-
+            <div class="controls" aria-label="Slide controls">
+                <button class="icon-button" type="button" data-direction="-1" aria-label="Previous slide">←</button>
+                <button class="icon-button" type="button" data-direction="1" aria-label="Next slide">→</button>
+            </div>
+            
             <nav class="section-nav" aria-label="Portfolio sections">
                 <a href="#cover" aria-label="Cover"></a>
                 <a href="#web-design" aria-label="Web design introduction"></a>
@@ -28,10 +28,10 @@
                 <a href="#contact" aria-label="Next step"></a>
             </nav>
 
-            <div class="controls" aria-label="Slide controls">
-                <button class="icon-button" type="button" data-direction="-1" aria-label="Previous slide">←</button>
-                <button class="icon-button" type="button" data-direction="1" aria-label="Next slide">→</button>
-            </div>
+            <a class="brand" href="#cover" aria-label="Go to start">
+                <img class="brand-image" src="assets/logo.png" alt="Laceels">
+            </a>
+
         </header>
 
         <div class="progress" aria-hidden="true">
@@ -53,8 +53,8 @@
             </section>
 
             <section class="slide chapter-slide intro-chapter" id="web-design" aria-label="Web design introduction">
-                <img class="chapter-art" src="assets/design/page-07.png" alt="">
-                <h2 class="chapter-title" aria-label="WebDesign"><span>Web</span><span>Design</span></h2>
+                <img class="chapter-art" src="assets/Zwischenpages/Webapp.svg" alt="">
+                <h2 class="chapter-title" aria-label="WebDesign"><span>Whats</span><span>Upp</span></h2>
             </section>
 
             <section class="slide project-slide" id="agent-project" aria-labelledby="agent-title">
@@ -113,42 +113,9 @@
                 </div>
             </section>
 
-            <section class="slide chapter-slide intro-chapter" id="web-design-between" aria-label="Web design separator">
-                <img class="chapter-art" src="assets/design/page-07.png" alt="">
-                <h2 class="chapter-title" aria-label="WebDesign"><span>Web</span><span>Design</span></h2>
-            </section>
-
-            <section class="slide project-slide accent-teal media-slide" id="architecture-project" aria-labelledby="architecture-title">
-                <div class="terminal-panel video-panel" aria-label="Mindcraft prototype video">
-                    <div class="window-dots" aria-hidden="true">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <p class="video-label">Mindcraft Prototype</p>
-                    <video class="agent-video" autoplay controls muted loop playsinline preload="metadata" poster="assets/design/slide-22.png">
-                        <source src="assets/video/mindcraft-prototype.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="project-copy">
-                    <p class="eyebrow">Semester Project</p>
-                    <h2 id="architecture-title">Mindcraft</h2>
-                    <p>
-                        A visual project that shows spatial thinking and iteration discipline. In the new portfolio, this can be
-                        connected to simulation, environment logic, or tool-assisted asset workflows.
-                    </p>
-                    <div class="tag-row" aria-label="Technologies">
-                        <span>Maya</span>
-                        <span>Lighting</span>
-                        <span>Composition</span>
-                        <span>Iteration</span>
-                    </div>
-                </div>
-            </section>
-
             <section class="slide chapter-slide intro-chapter" id="web-design-after" aria-label="Web design separator after case study">
-                <img class="chapter-art" src="assets/design/page-07.png" alt="">
-                <h2 class="chapter-title" aria-label="WebDesign"><span>Web</span><span>Design</span></h2>
+                <img class="chapter-art" src="assets/Zwischenpages/Illu.svg" alt="">
+                <h2 class="chapter-title three" aria-label="WebDesign"><span>FigmaAI</span><span>Plugin</span></h2>
             </section>
 
             <section class="slide project-slide" id="agent-project-repeat" aria-labelledby="agent-title-repeat">
@@ -192,6 +159,42 @@
                     </video>
                 </div>
             </section>
+
+            <section class="slide chapter-slide intro-chapter" id="web-design-between" aria-label="Web design separator">
+                <img class="chapter-art" src="assets/Zwischenpages/foto.svg" alt="">
+                <h2 class="chapter-title two" aria-label="MindCraft"><span>Mind</span><span>CraftAI</span></h2>
+            </section>
+
+
+            <section class="slide project-slide accent-teal media-slide" id="architecture-project" aria-labelledby="architecture-title">
+                <div class="terminal-panel video-panel" aria-label="Mindcraft prototype video">
+                    <div class="window-dots" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p class="video-label">Mindcraft Prototype</p>
+                    <video class="agent-video" autoplay controls muted loop playsinline preload="metadata" poster="assets/design/slide-22.png">
+                        <source src="assets/video/MindCraftAI.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="project-copy">
+                    <p class="eyebrow">Semester Project</p>
+                    <h2 id="architecture-title">MindcraftAI</h2>
+                    <p>
+                        A visual project that shows spatial thinking and iteration discipline. In the new portfolio, this can be
+                        connected to simulation, environment logic, or tool-assisted asset workflows.
+                    </p>
+                    <div class="tag-row" aria-label="Technologies">
+                        <span>Maya</span>
+                        <span>Lighting</span>
+                        <span>Composition</span>
+                        <span>Iteration</span>
+                    </div>
+                </div>
+            </section>
+
+            
 
             <section class="slide contact-slide" id="contact" aria-labelledby="contact-title">
                 <img class="chapter-art" src="assets/design/slide-03.png" alt="">
