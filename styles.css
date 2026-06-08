@@ -176,43 +176,57 @@ a {
 }
 
 .viewport {
-    display: flex;
+    --slide-duration: 620ms;
+    position: relative;
+    display: block;
     width: 100vw;
     height: 100dvh;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
-    scrollbar-width: none;
+    overflow: hidden;
     outline: none;
     cursor: grab;
-    overscroll-behavior-x: contain;
-    touch-action: pan-x;
+    touch-action: none;
     user-select: none;
 }
 
-.viewport::-webkit-scrollbar {
-    display: none;
+.viewport.is-dragging,
+.viewport.is-instant {
+    cursor: grabbing;
 }
 
-.viewport.is-dragging,
 .viewport.is-animating {
     cursor: grabbing;
-    scroll-snap-type: none;
 }
 
 .slide {
-    position: relative;
-    flex: 0 0 100vw;
+    position: absolute;
+    inset: 0;
     width: 100vw;
     min-width: 100vw;
     max-width: 100vw;
     height: 100dvh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
     overflow: hidden;
     isolation: isolate;
     contain: layout paint;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition: transform var(--slide-duration) cubic-bezier(0.22, 1, 0.36, 1);
+    visibility: hidden;
+    will-change: transform;
+}
+
+.slide.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide.is-active {
+    pointer-events: auto;
+}
+
+.viewport.is-dragging .slide,
+.viewport.is-instant .slide {
+    transition: none;
 }
 
 .chapter-art {
@@ -240,7 +254,8 @@ a {
     transition: opacity 700ms ease;
 }
 
-.slide.is-active::after {
+.slide.is-active::after,
+.slide.is-preview::after {
     opacity: 1;
 }
 
@@ -284,14 +299,23 @@ a {
 }
 
 .is-active .hero-copy,
+.is-preview .hero-copy,
 .is-active .project-copy,
+.is-preview .project-copy,
 .is-active .terminal-panel,
+.is-preview .terminal-panel,
 .is-active .video-panel,
+.is-preview .video-panel,
 .is-active .workflow-board,
+.is-preview .workflow-board,
 .is-active .metric-grid,
+.is-preview .metric-grid,
 .is-active .handoff-map,
+.is-preview .handoff-map,
 .is-active .legacy-media,
-.is-active .contact-panel {
+.is-preview .legacy-media,
+.is-active .contact-panel,
+.is-preview .contact-panel {
     transform: translateY(0);
     opacity: 1;
 }
@@ -525,6 +549,7 @@ h2 {
         linear-gradient(135deg, rgba(36, 210, 189, 0.08), transparent),
         #050607;
     object-fit: cover;
+    touch-action: auto;
 }
 
 .agent-steps {
