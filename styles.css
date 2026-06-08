@@ -288,7 +288,26 @@ a {
 .hero-slide {
     display: grid;
     align-items: end;
-    padding: 118px 8vw 94px;
+    justify-items: center;
+    padding: 96px 8vw clamp(34px, 5vh, 64px);
+    background: #000;
+}
+
+.hero-slide::after {
+    display: none;
+}
+
+.cover-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    width: 100%;
+    height: min(69dvh, 768px);
+    min-height: 420px;
+    object-fit: cover;
+    object-position: top center;
+    pointer-events: none;
 }
 
 .hero-copy {
@@ -296,6 +315,30 @@ a {
     transform: translateY(22px);
     opacity: 0;
     transition: transform 700ms ease, opacity 700ms ease;
+}
+
+.hero-copy--brand {
+    display: flex;
+    align-items: center;
+    width: min(640px, 88vw);
+    max-width: none;
+    flex-direction: column;
+    text-align: center;
+}
+
+.cover-title {
+    display: block;
+    width: min(570px, 88vw);
+    height: auto;
+    margin-bottom: clamp(12px, 1.8vh, 22px);
+    filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.5));
+}
+
+.cover-role {
+    margin: 0 0 clamp(30px, 4.8vh, 52px);
+    color: rgba(255, 255, 255, 0.62);
+    font-size: clamp(1rem, 1.5vw, 1.36rem);
+    line-height: 1.35;
 }
 
 .is-active .hero-copy,
