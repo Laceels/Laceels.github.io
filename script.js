@@ -66,6 +66,40 @@ const releaseSwipeInput = () => {
 
 const isTransitioning = () => pendingIndex !== null;
 
+const resetVideo = (video) => {
+    video.pause();
+
+    try {
+        video.currentTime = 0;
+    } catch {
+        video.load();
+    }
+};
+
+const playVideoFromStart = (video) => {
+    resetVideo(video);
+
+    if (!video.autoplay) return;
+
+    const playRequest = video.play();
+    if (playRequest) {
+        playRequest.catch(() => {});
+    }
+};
+
+const resetSlideVideos = () => {
+    slides.forEach((slide, index) => {
+        slide.querySelectorAll("video").forEach((video) => {
+            if (index === activeIndex) {
+                playVideoFromStart(video);
+                return;
+            }
+
+            resetVideo(video);
+        });
+    });
+};
+
 const animateCounts = (slide) => {
     const counters = slide.querySelectorAll("[data-count]");
     counters.forEach((counter) => {
@@ -123,6 +157,8 @@ const setActiveState = () => {
         const targetIndex = slides.findIndex((slide) => `#${slide.id}` === target);
         item.setAttribute("aria-current", String(targetIndex === activeIndex));
     });
+
+    resetSlideVideos();
 };
 
 const finishTransition = () => {
@@ -392,6 +428,9 @@ window.addEventListener("resize", () => {
 });
 
 setStaticSlideState();
-setActiveState();
+updateProgress(activeIndex);
+window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(setActiveState);
+});
 window.addEventListener("load", () => window.setTimeout(syncHash, 80));
 window.addEventListener("hashchange", syncHash);

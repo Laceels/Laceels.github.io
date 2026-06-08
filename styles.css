@@ -64,10 +64,7 @@ a {
     left: 20px;
     right: 20px;
     z-index: 20;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 24px;
+    height: 42px;
     pointer-events: none;
 }
 
@@ -78,6 +75,9 @@ a {
 }
 
 .brand {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -98,15 +98,18 @@ a {
 }
 
 .section-nav {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     display: inline-flex;
     align-items: center;
-    justify-self: center;
     gap: 8px;
     padding: 10px 12px;
     border: 1px solid var(--line);
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.44);
     backdrop-filter: blur(18px);
+    transform: translate(-50%, -50%);
 }
 
 .section-nav a {
@@ -123,7 +126,9 @@ a {
 }
 
 .controls {
-    justify-self: end;
+    position: absolute;
+    top: 0;
+    right: 0;
     display: inline-flex;
     gap: 8px;
 }
@@ -265,6 +270,8 @@ a {
 .viewport.is-animating .slide::after,
 .viewport.is-dragging .hero-copy,
 .viewport.is-animating .hero-copy,
+.viewport.is-dragging .chapter-title,
+.viewport.is-animating .chapter-title,
 .viewport.is-dragging .project-copy,
 .viewport.is-animating .project-copy,
 .viewport.is-dragging .terminal-panel,
@@ -317,6 +324,30 @@ a {
     transition: transform 700ms ease, opacity 700ms ease;
 }
 
+.chapter-title {
+    position: absolute;
+    left: 14vw;
+    bottom: 11vh;
+    z-index: 2;
+    margin: 0;
+    color: rgba(244, 242, 239, 0.84);
+    font-size: clamp(3.4rem, 6.2vw, 5.8rem);
+    font-weight: 300;
+    line-height: 1;
+    opacity: 0;
+    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
+    transform: translateY(22px);
+    transition: transform 700ms ease, opacity 700ms ease;
+}
+
+.chapter-title span:first-child {
+    font-weight: 700;
+}
+
+.chapter-title span:last-child {
+    font-weight: 300;
+}
+
 .hero-copy--brand {
     display: flex;
     align-items: center;
@@ -342,6 +373,7 @@ a {
 }
 
 .is-active .hero-copy,
+.is-active .chapter-title,
 .is-active .project-copy,
 .is-active .terminal-panel,
 .is-active .video-panel,
@@ -549,6 +581,21 @@ h2 {
     min-height: 520px;
 }
 
+.prototype-video-panel {
+    width: min(1380px, calc(100vw - 96px), calc((100dvh - 150px) * 5 / 3));
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 5 / 3;
+}
+
+.video-label {
+    margin: -8px 0 16px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+}
+
 .window-dots {
     display: flex;
     gap: 9px;
@@ -582,7 +629,7 @@ h2 {
     background:
         linear-gradient(135deg, rgba(36, 210, 189, 0.08), transparent),
         #050607;
-    object-fit: cover;
+    object-fit: contain;
     touch-action: auto;
 }
 
@@ -782,8 +829,7 @@ h2 {
 
 @media (max-width: 980px) {
     .topbar {
-        grid-template-columns: 1fr auto;
-        gap: 14px;
+        height: 42px;
     }
 
     .section-nav {
@@ -825,6 +871,19 @@ h2 {
 
     .video-panel-large {
         height: min(560px, calc(100dvh - 150px));
+    }
+
+    .prototype-video-panel {
+        width: 100%;
+        min-height: 0;
+        height: auto;
+        aspect-ratio: 5 / 3;
+    }
+
+    .chapter-title {
+        left: 28px;
+        bottom: 12vh;
+        font-size: clamp(3rem, 10vw, 5rem);
     }
 
     .workflow-board,
@@ -905,6 +964,19 @@ h2 {
     .video-panel,
     .contact-panel {
         padding: 18px;
+    }
+
+    .prototype-video-panel {
+        width: 100%;
+        min-height: 0;
+        height: auto;
+        aspect-ratio: 5 / 3;
+    }
+
+    .chapter-title {
+        left: 20px;
+        bottom: 12vh;
+        font-size: clamp(2.45rem, 13vw, 3.4rem);
     }
 
     .metric-grid strong {
