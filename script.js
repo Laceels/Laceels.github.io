@@ -6,39 +6,85 @@ const directionButtons = document.querySelectorAll("[data-direction]");
 const jumpButtons = document.querySelectorAll("[data-jump]");
 const internalLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const SLIDE_SCROLL_DURATION = 1050;
+const WHEEL_LOCK_DURATION = 1050;
 
 let activeIndex = 0;
 let ticking = false;
 let navigationLocked = false;
 let lastViewportWidth = viewport.clientWidth;
 let wheelLocked = false;
+let scrollAnimationFrame = null;
 let isDragging = false;
 let dragStartX = 0;
 let dragStartScroll = 0;
 let dragPointerId = null;
 
+const easeInOutQuart = (value) => (
+    value < 0.5
+        ? 8 * value * value * value * value
+        : 1 - Math.pow(-2 * value + 2, 4) / 2
+);
+
+const cancelScrollAnimation = () => {
+    if (!scrollAnimationFrame) return;
+    cancelAnimationFrame(scrollAnimationFrame);
+    scrollAnimationFrame = null;
+    viewport.classList.remove("is-animating");
+};
+
+const animateViewportTo = (targetLeft, duration) => {
+    cancelScrollAnimation();
+
+    const startLeft = viewport.scrollLeft;
+    const distance = targetLeft - startLeft;
+    const startedAt = performance.now();
+
+    viewport.classList.add("is-animating");
+
+    const step = (now) => {
+        const elapsed = now - startedAt;
+        const progressValue = Math.min(1, elapsed / duration);
+        const eased = easeInOutQuart(progressValue);
+
+        viewport.scrollLeft = startLeft + distance * eased;
+        requestStateUpdate();
+
+        if (progressValue < 1) {
+            scrollAnimationFrame = requestAnimationFrame(step);
+            return;
+        }
+
+        scrollAnimationFrame = null;
+        viewport.classList.remove("is-animating");
+        navigationLocked = false;
+        setActiveState();
+    };
+
+    scrollAnimationFrame = requestAnimationFrame(step);
+};
+
 const scrollToSlide = (index, behaviorOverride) => {
     const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
     const behavior = behaviorOverride || (reduceMotion ? "auto" : "smooth");
+    const targetLeft = nextIndex * viewport.clientWidth;
 
+    cancelScrollAnimation();
     navigationLocked = false;
     activeIndex = nextIndex;
     navigationLocked = behavior === "smooth";
 
-    viewport.scrollTo({
-        left: nextIndex * viewport.clientWidth,
-        behavior
-    });
-
-    if (!navigationLocked) {
-        setActiveState();
+    if (navigationLocked) {
+        animateViewportTo(targetLeft, SLIDE_SCROLL_DURATION);
         return;
     }
 
-    window.setTimeout(() => {
-        navigationLocked = false;
-        setActiveState();
-    }, reduceMotion ? 0 : 520);
+    viewport.scrollTo({
+        left: targetLeft,
+        behavior: "auto"
+    });
+
+    setActiveState();
 };
 
 const currentSlideIndex = () => Math.round(viewport.scrollLeft / viewport.clientWidth);
@@ -143,12 +189,13 @@ viewport.addEventListener("wheel", (event) => {
 
     window.setTimeout(() => {
         wheelLocked = false;
-    }, reduceMotion ? 120 : 420);
+    }, reduceMotion ? 120 : WHEEL_LOCK_DURATION);
 }, { passive: false });
 
 viewport.addEventListener("pointerdown", (event) => {
     if (event.button !== 0 || event.target.closest("a, button, video, input, textarea, select")) return;
 
+    cancelScrollAnimation();
     isDragging = true;
     dragPointerId = event.pointerId;
     dragStartX = event.clientX;
@@ -176,7 +223,7 @@ const endDrag = (event) => {
     if (viewport.hasPointerCapture(event.pointerId)) {
         viewport.releasePointerCapture(event.pointerId);
     }
-    scrollToSlide(currentSlideIndex(), "auto");
+    scrollToSlide(currentSlideIndex());
 };
 
 viewport.addEventListener("pointerup", endDrag);

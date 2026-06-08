@@ -193,7 +193,8 @@ a {
     display: none;
 }
 
-.viewport.is-dragging {
+.viewport.is-dragging,
+.viewport.is-animating {
     cursor: grabbing;
     scroll-snap-type: none;
 }
