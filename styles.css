@@ -299,23 +299,14 @@ a {
 }
 
 .is-active .hero-copy,
-.is-preview .hero-copy,
 .is-active .project-copy,
-.is-preview .project-copy,
 .is-active .terminal-panel,
-.is-preview .terminal-panel,
 .is-active .video-panel,
-.is-preview .video-panel,
 .is-active .workflow-board,
-.is-preview .workflow-board,
 .is-active .metric-grid,
-.is-preview .metric-grid,
 .is-active .handoff-map,
-.is-preview .handoff-map,
 .is-active .legacy-media,
-.is-preview .legacy-media,
-.is-active .contact-panel,
-.is-preview .contact-panel {
+.is-active .contact-panel {
     transform: translateY(0);
     opacity: 1;
 }
