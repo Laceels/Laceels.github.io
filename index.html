@@ -3,22 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Page</title>
+    <meta name="description" content="Interactive portfolio for university projects, design work, and agentic coding case studies.">
+    <title>Laceels Portfolio | Agentic Coding</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
-</head> 
+</head>
 <body>
-    <header>
-        <h1>Welcome to My Portfolio Page</h1>
-    </header>
-    <main>
-        <section>
-            <p>I'm hosted with Github Pages.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 </p>
-    </footer>
-    
+    <div class="site-shell">
+        <header class="topbar" aria-label="Portfolio controls">
+            <a class="brand" href="#cover" aria-label="Go to start">
+                <span class="brand-mark" aria-hidden="true">L</span>
+                <span>Laceels</span>
+            </a>
+
+            <nav class="section-nav" aria-label="Portfolio sections">
+                <a href="#cover" aria-label="Cover"></a>
+                <a href="#web-design" aria-label="Web design introduction"></a>
+                <a href="#agent-project" aria-label="Research assistant agent"></a>
+                <a href="#video-focus" aria-label="Expanded research assistant video"></a>
+                <a href="#web-design-between" aria-label="Web design separator"></a>
+                <a href="#architecture-project" aria-label="3D system prototype"></a>
+                <a href="#web-design-after" aria-label="Web design separator after case study"></a>
+                <a href="#agent-project-repeat" aria-label="Research assistant agent repeat"></a>
+                <a href="#contact" aria-label="Next step"></a>
+            </nav>
+
+            <div class="controls" aria-label="Slide controls">
+                <button class="icon-button" type="button" data-direction="-1" aria-label="Previous slide">←</button>
+                <button class="icon-button" type="button" data-direction="1" aria-label="Next slide">→</button>
+            </div>
+        </header>
+
+        <div class="progress" aria-hidden="true">
+            <span></span>
+        </div>
+
+        <main class="viewport" tabindex="0" aria-label="Horizontal portfolio">
+            <section class="slide hero-slide" id="cover" aria-label="Portfolio cover">
+                <img class="chapter-art" src="assets/design/page-01.png" alt="">
+                <div class="hero-copy">
+                    <p class="eyebrow">Interactive portfolio</p>
+                    <h1>University projects for an agentic coding role.</h1>
+                    <p class="lead">
+                        A horizontal portfolio that connects design craft, software thinking, and automation-focused project work.
+                    </p>
+                    <button class="primary-action" type="button" data-jump="1">
+                        <span aria-hidden="true">→</span>
+                        <span>Explore projects</span>
+                    </button>
+                </div>
+                <div class="signal-strip" aria-label="Portfolio focus">
+                    <span>Design systems</span>
+                    <span>Automation</span>
+                    <span>AI workflows</span>
+                </div>
+            </section>
+
+            <section class="slide chapter-slide intro-chapter" id="web-design" aria-label="Web design introduction">
+                <img class="chapter-art" src="assets/design/page-07.png" alt="">
+                <h2 class="sr-only">WebDesign</h2>
+            </section>
+
+            <section class="slide project-slide" id="agent-project" aria-labelledby="agent-title">
+                <div class="project-copy">
+                    <p class="eyebrow">Case study 01</p>
+                    <h2 id="agent-title">Research assistant agent</h2>
+                    <p>
+                        A university project framed as an agentic workflow: collect sources, break down a research question,
+                        call tools, summarize findings, and keep a traceable decision log.
+                    </p>
+                    <dl class="project-facts">
+                        <div>
+                            <dt>Role</dt>
+                            <dd>Concept, prototype, evaluation</dd>
+                        </div>
+                        <div>
+                            <dt>Focus</dt>
+                            <dd>Planning loops and tool use</dd>
+                        </div>
+                        <div>
+                            <dt>Outcome</dt>
+                            <dd>Repeatable research workflow</dd>
+                        </div>
+                    </dl>
+                    <div class="tag-row" aria-label="Technologies">
+                        <span>Python</span>
+                        <span>LLM APIs</span>
+                        <span>RAG</span>
+                        <span>Evaluation</span>
+                    </div>
+                </div>
+
+                <div class="terminal-panel video-panel" aria-label="Research assistant agent video">
+                    <div class="window-dots" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <video class="agent-video" autoplay controls muted loop playsinline preload="metadata" poster="assets/design/page-07.png">
+                        <source src="assets/video/research-assistant-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section class="slide video-focus-slide" id="video-focus" aria-label="Expanded research assistant agent video">
+                <div class="terminal-panel video-panel video-panel-large">
+                    <div class="window-dots" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <video class="agent-video" autoplay controls muted loop playsinline preload="metadata" poster="assets/design/page-07.png">
+                        <source src="assets/video/research-assistant-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section class="slide chapter-slide intro-chapter" id="web-design-between" aria-label="Web design separator">
+                <img class="chapter-art" src="assets/design/page-07.png" alt="">
+                <h2 class="sr-only">WebDesign</h2>
+            </section>
+
+            <section class="slide project-slide accent-teal media-slide" id="architecture-project" aria-labelledby="architecture-title">
+                <figure class="legacy-media">
+                    <img src="assets/design/slide-22.png" alt="Toon architecture project render">
+                </figure>
+                <div class="project-copy">
+                    <p class="eyebrow">Case study 05</p>
+                    <h2 id="architecture-title">3D system prototype</h2>
+                    <p>
+                        A visual project that shows spatial thinking and iteration discipline. In the new portfolio, this can be
+                        connected to simulation, environment logic, or tool-assisted asset workflows.
+                    </p>
+                    <div class="tag-row" aria-label="Technologies">
+                        <span>Maya</span>
+                        <span>Lighting</span>
+                        <span>Composition</span>
+                        <span>Iteration</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide chapter-slide intro-chapter" id="web-design-after" aria-label="Web design separator after case study">
+                <img class="chapter-art" src="assets/design/page-07.png" alt="">
+                <h2 class="sr-only">WebDesign</h2>
+            </section>
+
+            <section class="slide project-slide" id="agent-project-repeat" aria-labelledby="agent-title-repeat">
+                <div class="project-copy">
+                    <p class="eyebrow">Case study 01</p>
+                    <h2 id="agent-title-repeat">Research assistant agent</h2>
+                    <p>
+                        A university project framed as an agentic workflow: collect sources, break down a research question,
+                        call tools, summarize findings, and keep a traceable decision log.
+                    </p>
+                    <dl class="project-facts">
+                        <div>
+                            <dt>Role</dt>
+                            <dd>Concept, prototype, evaluation</dd>
+                        </div>
+                        <div>
+                            <dt>Focus</dt>
+                            <dd>Planning loops and tool use</dd>
+                        </div>
+                        <div>
+                            <dt>Outcome</dt>
+                            <dd>Repeatable research workflow</dd>
+                        </div>
+                    </dl>
+                    <div class="tag-row" aria-label="Technologies">
+                        <span>Python</span>
+                        <span>LLM APIs</span>
+                        <span>RAG</span>
+                        <span>Evaluation</span>
+                    </div>
+                </div>
+
+                <div class="terminal-panel video-panel" aria-label="Research assistant agent video">
+                    <div class="window-dots" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <video class="agent-video" autoplay controls muted loop playsinline preload="metadata" poster="assets/design/page-07.png">
+                        <source src="assets/video/research-assistant-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section class="slide contact-slide" id="contact" aria-labelledby="contact-title">
+                <img class="chapter-art" src="assets/design/slide-03.png" alt="">
+                <div class="contact-panel">
+                    <p class="eyebrow">Next step</p>
+                    <h2 id="contact-title">Built for an internal move into agentic coding.</h2>
+                    <p>
+                        The structure is ready for final project names, GitHub links, demos, screenshots, and short business-impact notes.
+                    </p>
+                    <div class="contact-actions">
+                        <a href="https://github.com/Laceels" target="_blank" rel="noreferrer">
+                            <span aria-hidden="true">↗</span>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="#agent-project">
+                            <span aria-hidden="true">→</span>
+                            <span>Cases</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
