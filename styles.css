@@ -182,9 +182,11 @@ a {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
     scrollbar-width: none;
     outline: none;
     cursor: grab;
+    overscroll-behavior-x: contain;
     touch-action: pan-x;
     user-select: none;
 }
@@ -203,10 +205,14 @@ a {
     position: relative;
     flex: 0 0 100vw;
     width: 100vw;
+    min-width: 100vw;
+    max-width: 100vw;
     height: 100dvh;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     overflow: hidden;
     isolation: isolate;
+    contain: layout paint;
 }
 
 .chapter-art {
@@ -236,6 +242,32 @@ a {
 
 .slide.is-active::after {
     opacity: 1;
+}
+
+.viewport.is-dragging .chapter-art,
+.viewport.is-animating .chapter-art,
+.viewport.is-dragging .slide::after,
+.viewport.is-animating .slide::after,
+.viewport.is-dragging .hero-copy,
+.viewport.is-animating .hero-copy,
+.viewport.is-dragging .project-copy,
+.viewport.is-animating .project-copy,
+.viewport.is-dragging .terminal-panel,
+.viewport.is-animating .terminal-panel,
+.viewport.is-dragging .video-panel,
+.viewport.is-animating .video-panel,
+.viewport.is-dragging .workflow-board,
+.viewport.is-animating .workflow-board,
+.viewport.is-dragging .metric-grid,
+.viewport.is-animating .metric-grid,
+.viewport.is-dragging .handoff-map,
+.viewport.is-animating .handoff-map,
+.viewport.is-dragging .legacy-media,
+.viewport.is-animating .legacy-media,
+.viewport.is-dragging .contact-panel,
+.viewport.is-animating .contact-panel {
+    transition: none;
+    animation-play-state: paused;
 }
 
 .hero-slide {
