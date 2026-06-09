@@ -553,6 +553,10 @@ h2 {
     max-width: 620px;
 }
 
+.project-copy h2 .title-light {
+    font-weight: 300;
+}
+
 .project-copy p {
     margin-bottom: 26px;
 }
