@@ -337,7 +337,7 @@ a {
 @keyframes cover-intro {
     from {
         opacity: 0;
-        transform: translateY(28px);
+        transform: translateY(22px);
     }
 
     to {
@@ -347,7 +347,8 @@ a {
 }
 
 .hero-slide.is-active .hero-copy {
-    animation: cover-intro 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    transition: none;
+    animation: cover-intro 720ms ease-out both;
 }
 
 .chapter-title {
@@ -845,16 +846,33 @@ h2 {
 }
 
 .contact-panel {
-    width: min(620px, 100%);
+    position: relative;
+    width: min(750px, 100%);
     padding: 30px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.66)) padding-box,
-        linear-gradient(90deg, #ff8e29 0%, #d50032 100%) border-box;
+    border: 0.2px solid transparent;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.46);
     box-shadow: var(--shadow);
     backdrop-filter: blur(18px);
     text-align: center;
+}
+
+.contact-panel::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(90deg, #ff8e29 0%, #d50032 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
 }
 
 .contact-panel h2 {
