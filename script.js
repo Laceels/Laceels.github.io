@@ -10,6 +10,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const SLIDE_TRANSITION_DURATION = 620;
 const SWIPE_UNLOCK_DELAY = 180;
 const DRAG_THRESHOLD = 70;
+const VIDEO_VOLUME = 1 / 4;
+const VIDEO_FADE_DURATION = 1400;
+const videoStartTimers = new WeakMap();
+const videoFadeFrames = new WeakMap();
 
 let activeIndex = 0;
 let pendingIndex = null;
@@ -66,7 +70,85 @@ const releaseSwipeInput = () => {
 
 const isTransitioning = () => pendingIndex !== null;
 
+const setVideoAudio = (video, volume = VIDEO_VOLUME) => {
+    video.defaultMuted = false;
+    video.muted = false;
+    video.volume = Math.min(VIDEO_VOLUME, Math.max(0, volume));
+};
+
+const clearVideoFade = (video) => {
+    const frame = videoFadeFrames.get(video);
+    if (!frame) return;
+
+    window.cancelAnimationFrame(frame);
+    videoFadeFrames.delete(video);
+};
+
+const clearVideoStartTimer = (video) => {
+    const timer = videoStartTimers.get(video);
+    if (!timer) return;
+
+    window.clearTimeout(timer);
+    videoStartTimers.delete(video);
+};
+
+const startVideo = (video) => {
+    if (!video.autoplay && !video.dataset.startDelay) return;
+
+    clearVideoFade(video);
+    setVideoAudio(video, 0);
+
+    const fadeInVideo = () => {
+        clearVideoFade(video);
+
+        if (reduceMotion) {
+            setVideoAudio(video);
+            return;
+        }
+
+        const start = performance.now();
+
+        const step = (now) => {
+            const progressValue = Math.min(1, (now - start) / VIDEO_FADE_DURATION);
+            setVideoAudio(video, VIDEO_VOLUME * progressValue);
+
+            if (progressValue < 1 && !video.paused) {
+                videoFadeFrames.set(video, window.requestAnimationFrame(step));
+                return;
+            }
+
+            videoFadeFrames.delete(video);
+            setVideoAudio(video);
+        };
+
+        videoFadeFrames.set(video, window.requestAnimationFrame(step));
+    };
+
+    const playRequest = video.play();
+    if (playRequest) {
+        playRequest
+            .then(fadeInVideo)
+            .catch(() => {
+                video.muted = true;
+                video.volume = 0;
+
+                const mutedPlayRequest = video.play();
+                if (mutedPlayRequest) {
+                    mutedPlayRequest
+                        .then(fadeInVideo)
+                        .catch(() => setVideoAudio(video));
+                }
+            });
+        return;
+    }
+
+    fadeInVideo();
+};
+
 const resetVideo = (video) => {
+    clearVideoStartTimer(video);
+    clearVideoFade(video);
+    setVideoAudio(video);
     video.pause();
 
     try {
@@ -76,15 +158,40 @@ const resetVideo = (video) => {
     }
 };
 
+const stopInactiveVideo = (video) => {
+    clearVideoStartTimer(video);
+    clearVideoFade(video);
+    setVideoAudio(video);
+
+    if (!video.paused) {
+        video.pause();
+    }
+
+    if (video.currentTime <= 0) return;
+
+    try {
+        video.currentTime = 0;
+    } catch {}
+};
+
 const playVideoFromStart = (video) => {
     resetVideo(video);
 
-    if (!video.autoplay) return;
-
-    const playRequest = video.play();
-    if (playRequest) {
-        playRequest.catch(() => {});
+    const delay = Number(video.dataset.startDelay) || 0;
+    if (delay <= 0) {
+        startVideo(video);
+        return;
     }
+
+    video.load();
+    setVideoAudio(video);
+
+    const timer = window.setTimeout(() => {
+        videoStartTimers.delete(video);
+        startVideo(video);
+    }, delay);
+
+    videoStartTimers.set(video, timer);
 };
 
 const resetSlideVideos = () => {
@@ -95,7 +202,7 @@ const resetSlideVideos = () => {
                 return;
             }
 
-            resetVideo(video);
+            stopInactiveVideo(video);
         });
     });
 };

@@ -89,9 +89,9 @@ a {
 
 .brand-image {
     display: block;
-    height: 42px;
+    height: clamp(72px, 6vw, 108px);
     width: auto;
-    max-width: 180px;
+    max-width: clamp(72px, 6vw, 108px);
     object-fit: contain;
 }
 
@@ -334,6 +334,22 @@ a {
     transition: transform 700ms ease, opacity 700ms ease;
 }
 
+@keyframes cover-intro {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-slide.is-active .hero-copy {
+    animation: cover-intro 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .chapter-title {
     position: absolute;
     left: 14vw;
@@ -358,38 +374,19 @@ a {
     font-weight: 300;
 }
 
-.chapter-title .two{
-    position: absolute;
+.chapter-title.two {
     right: 14vw;
-    bottom: 11vh;
-    z-index: 2;
-    margin: 0;
-    color: rgba(244, 242, 239, 0.84);
-    font-size: clamp(3.4rem, 6.2vw, 5.8rem);
-    font-weight: 300;
-    line-height: 1;
-    opacity: 0;
-    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
-    transform: translateY(-22px);
-    transition: transform 700ms ease, opacity 700ms ease;
+    left: auto;
+    text-align: right;
 }
 
-.chapter-title .three{
-    position: absolute;
-    right: 14vw;
-    bottom: 11vh;
-    z-index: 2;
-    margin: 0;
-    color: rgba(244, 242, 239, 0.84);
-    font-size: clamp(3.4rem, 6.2vw, 5.8rem);
-    font-weight: 300;
-    line-height: 1;
-    opacity: 0;
-    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
+.chapter-title.three {
+    top: 13vh;
+    bottom: auto;
+    left: 8vw;
+    text-align: left;
     transform: translateY(-22px);
-    transition: transform 700ms ease, opacity 700ms ease;
 }
-
 
 .hero-copy--brand {
     display: flex;
@@ -615,6 +612,7 @@ h2 {
 .video-panel {
     display: flex;
     min-height: 500px;
+    padding: 14px;
     flex-direction: column;
 }
 
@@ -625,14 +623,31 @@ h2 {
 }
 
 .prototype-video-panel {
-    width: min(1380px, calc(100vw - 96px), calc((100dvh - 150px) * 5 / 3));
+    position: relative;
+    width: min(1380px, calc(100vw - 96px), calc(166.667dvh - 390px));
     min-height: 0;
     height: auto;
+    overflow: hidden;
+}
+
+.prototype-video-panel .window-dots {
+    margin-bottom: 8px;
+}
+
+.prototype-video-panel .video-label {
+    margin: -4px 0 8px;
+}
+
+.prototype-video-panel .agent-video {
+    height: auto;
+    flex: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
     aspect-ratio: 5 / 3;
 }
 
 .video-label {
-    margin: -8px 0 16px;
+    margin: -4px 0 8px;
     color: rgba(255, 255, 255, 0.72);
     font-size: 0.95rem;
     font-weight: 700;
@@ -642,7 +657,7 @@ h2 {
 .window-dots {
     display: flex;
     gap: 9px;
-    margin-bottom: 34px;
+    margin-bottom: 8px;
 }
 
 .window-dots span {
@@ -812,7 +827,9 @@ h2 {
 
 .chapter-slide .chapter-art,
 .media-chapter .chapter-art {
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     filter: saturate(0.96) contrast(1.02);
 }
 
@@ -830,9 +847,11 @@ h2 {
 .contact-panel {
     width: min(620px, 100%);
     padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.66);
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.66)) padding-box,
+        linear-gradient(90deg, #ff8e29 0%, #d50032 100%) border-box;
     box-shadow: var(--shadow);
     backdrop-filter: blur(18px);
     text-align: center;
@@ -917,16 +936,26 @@ h2 {
     }
 
     .prototype-video-panel {
-        width: 100%;
+        width: min(100%, calc(166.667dvh - 376.667px));
         min-height: 0;
         height: auto;
-        aspect-ratio: 5 / 3;
     }
 
     .chapter-title {
         left: 28px;
         bottom: 12vh;
         font-size: clamp(3rem, 10vw, 5rem);
+    }
+
+    .chapter-title.two {
+        right: 28px;
+        left: auto;
+    }
+
+    .chapter-title.three {
+        top: 12vh;
+        bottom: auto;
+        left: 28px;
     }
 
     .workflow-board,
@@ -972,8 +1001,8 @@ h2 {
     }
 
     .brand-image {
-        height: 150px;
-        max-width: 150px;
+        height: clamp(76px, 22vw, 104px);
+        max-width: clamp(76px, 22vw, 104px);
     }
 
     .icon-button {
@@ -1014,17 +1043,32 @@ h2 {
         padding: 18px;
     }
 
+    .video-panel {
+        padding: 14px;
+    }
+
     .prototype-video-panel {
-        width: 100%;
+        width: min(100%, calc(166.667dvh - 340px));
         min-height: 0;
         height: auto;
-        aspect-ratio: 5 / 3;
     }
 
     .chapter-title {
         left: 20px;
         bottom: 12vh;
         font-size: clamp(2.45rem, 13vw, 3.4rem);
+    }
+
+    .chapter-title.two {
+        right: 20px;
+        left: auto;
+    }
+
+    .chapter-title.three {
+        top: 13vh;
+        bottom: auto;
+        left: 20px;
+        max-width: calc(100vw - 40px);
     }
 
     .metric-grid strong {
