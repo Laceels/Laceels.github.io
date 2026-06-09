@@ -43,6 +43,11 @@ const updateProgress = (index) => {
     progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
 };
 
+const resetViewportScroll = () => {
+    viewport.scrollLeft = 0;
+    viewport.scrollTop = 0;
+};
+
 const clearSwipeUnlockTimer = () => {
     if (!swipeUnlockTimer) return;
     window.clearTimeout(swipeUnlockTimer);
@@ -501,6 +506,7 @@ const syncHash = () => {
     viewport.classList.add("is-instant");
     viewport.classList.remove("is-animating", "is-dragging");
     goToSlide(targetIndex, false);
+    resetViewportScroll();
 };
 
 document.addEventListener("keydown", (event) => {
